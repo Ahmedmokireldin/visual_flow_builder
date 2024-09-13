@@ -1,26 +1,56 @@
 document.addEventListener('DOMContentLoaded', function() {
     const canvas = document.getElementById('canvas');
-    const toolboxItems = document.querySelectorAll('.toolbox-item');
+    const toolbox = document.getElementById('toolbox');
     const nodeNameInput = document.getElementById('node-name');
     const nodeSpecificProperties = document.getElementById('node-specific-properties');
     const saveBtn = document.getElementById('save-btn');
+    const deleteNodeBtn = document.getElementById('delete-node');
     let nodes = [];
     let selectedNode = null;
 
     // Initialize jsPlumb
     const jsPlumbInstance = jsPlumb.getInstance({
         Connector: ["Bezier", { curviness: 50 }],
-        Anchors: ["Top", "Bottom"]
+        Anchors: ["Top", "Bottom", "Left", "Right"],
+        EndpointStyle: { fill: "#999", outlineWidth: 1 },
+        HoverPaintStyle: { stroke: "#1e8151", strokeWidth: 2 },
+        ConnectionsDetachable: true,
+        ConnectionOverlays: [
+            ["Arrow", { location: 1, width: 10, length: 10 }]
+        ]
     });
 
-    toolboxItems.forEach(item => {
+    // Node types configuration
+    const nodeTypes = [
+        { type: 'start', icon: 'fas fa-play', name: 'Start' },
+        { type: 'facebook', icon: 'fab fa-facebook', name: 'Facebook' },
+        { type: 'twitter', icon: 'fab fa-twitter', name: 'Twitter' },
+        { type: 'instagram', icon: 'fab fa-instagram', name: 'Instagram' },
+        { type: 'landing-page', icon: 'fas fa-file', name: 'Landing Page' },
+        { type: 'email', icon: 'fas fa-envelope', name: 'Email' },
+        { type: 'decision', icon: 'fas fa-question', name: 'Decision' },
+        { type: 'catalogue', icon: 'fas fa-book', name: 'Catalogue' },
+        { type: 'ai-personalization', icon: 'fas fa-robot', name: 'AI Personalization' },
+        { type: 'multi-path', icon: 'fas fa-random', name: 'Multi-Path' },
+        { type: 'end', icon: 'fas fa-stop', name: 'End' }
+    ];
+
+    // Populate toolbox
+    nodeTypes.forEach(nodeType => {
+        const item = document.createElement('div');
+        item.className = 'toolbox-item';
+        item.draggable = true;
+        item.innerHTML = `<i class="${nodeType.icon}"></i>${nodeType.name}`;
+        item.dataset.type = nodeType.type;
         item.addEventListener('dragstart', dragStart);
+        toolbox.appendChild(item);
     });
 
     canvas.addEventListener('dragover', dragOver);
     canvas.addEventListener('drop', drop);
     nodeNameInput.addEventListener('input', updateNodeName);
     saveBtn.addEventListener('click', saveFlow);
+    deleteNodeBtn.addEventListener('click', deleteSelectedNode);
 
     function dragStart(e) {
         e.dataTransfer.setData('text/plain', e.target.dataset.type);
@@ -37,9 +67,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function createNode(type, x, y) {
+        const nodeType = nodeTypes.find(nt => nt.type === type);
         const node = document.createElement('div');
         node.className = `node node-${type}`;
-        node.innerHTML = `<i class="${getIconClass(type)}"></i><span>${type}</span>`;
+        node.innerHTML = `<i class="${nodeType.icon}"></i><span>${nodeType.name}</span>`;
         node.style.left = `${x - canvas.offsetLeft - 60}px`;
         node.style.top = `${y - canvas.offsetTop - 30}px`;
         node.dataset.type = type;
@@ -66,29 +97,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const nodeData = {
             element: node,
             type: type,
-            name: type,
+            name: nodeType.name,
             properties: getDefaultProperties(type)
         };
 
         nodes.push(nodeData);
         return nodeData;
-    }
-
-    function getIconClass(type) {
-        const iconMap = {
-            'start': 'fas fa-play',
-            'facebook': 'fab fa-facebook',
-            'twitter': 'fab fa-twitter',
-            'instagram': 'fab fa-instagram',
-            'landing-page': 'fas fa-file',
-            'email': 'fas fa-envelope',
-            'decision': 'fas fa-question',
-            'catalogue': 'fas fa-book',
-            'ai-personalization': 'fas fa-robot',
-            'multi-path': 'fas fa-random',
-            'end': 'fas fa-stop'
-        };
-        return iconMap[type] || 'fas fa-circle';
     }
 
     function getDefaultProperties(type) {
@@ -106,10 +120,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function selectNode(e) {
         if (selectedNode) {
-            selectedNode.element.style.boxShadow = 'none';
+            selectedNode.element.classList.remove('selected');
         }
         selectedNode = nodes.find(n => n.element === e.currentTarget);
-        selectedNode.element.style.boxShadow = '0 0 0 2px blue';
+        selectedNode.element.classList.add('selected');
         nodeNameInput.value = selectedNode.name;
         showNodeProperties(selectedNode);
     }
@@ -161,6 +175,16 @@ document.addEventListener('DOMContentLoaded', function() {
         const nodeData = nodes.find(n => n.element === node);
         nodeData.x = x;
         nodeData.y = y;
+    }
+
+    function deleteSelectedNode() {
+        if (selectedNode) {
+            jsPlumbInstance.remove(selectedNode.element);
+            nodes = nodes.filter(n => n !== selectedNode);
+            selectedNode = null;
+            nodeNameInput.value = '';
+            nodeSpecificProperties.innerHTML = '';
+        }
     }
 
     function saveFlow() {
