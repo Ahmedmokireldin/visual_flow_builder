@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Flow Builder with Catalogue and AI</title>
+    <title>Improved Flow Builder</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -12,27 +11,18 @@
     <div id="app">
         <div id="toolbox">
             <h3>Elements</h3>
-            <div class="toolbox-item" draggable="true" data-type="start"><i class="fas fa-play"></i> Start</div>
-            <div class="toolbox-item" draggable="true" data-type="facebook"><i class="fab fa-facebook"></i> Facebook</div>
-            <div class="toolbox-item" draggable="true" data-type="twitter"><i class="fab fa-twitter"></i> Twitter</div>
-            <div class="toolbox-item" draggable="true" data-type="instagram"><i class="fab fa-instagram"></i> Instagram</div>
-            <div class="toolbox-item" draggable="true" data-type="landing-page"><i class="fas fa-file"></i> Landing Page</div>
-            <div class="toolbox-item" draggable="true" data-type="email"><i class="fas fa-envelope"></i> Email</div>
-            <div class="toolbox-item" draggable="true" data-type="decision"><i class="fas fa-question"></i> Decision</div>
-            <div class="toolbox-item" draggable="true" data-type="catalogue"><i class="fas fa-book"></i> Catalogue</div>
-            <div class="toolbox-item" draggable="true" data-type="ai-personalization"><i class="fas fa-robot"></i> AI Personalization</div>
-            <div class="toolbox-item" draggable="true" data-type="multi-path"><i class="fas fa-random"></i> Multi-Path</div>
-            <div class="toolbox-item" draggable="true" data-type="end"><i class="fas fa-stop"></i> End</div>
+            <!-- Toolbox items will be dynamically added here -->
         </div>
         <div id="canvas"></div>
         <div id="properties">
             <h3>Properties</h3>
             <input type="text" id="node-name" placeholder="Node Name">
             <div id="node-specific-properties"></div>
+            <button id="delete-node">Delete Node</button>
         </div>
     </div>
     <button id="save-btn">Save Flow</button>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsPlumb/2.15.6/js/jsplumb.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsplumb/2.15.6/js/jsplumb.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
