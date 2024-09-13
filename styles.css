@@ -49,69 +49,13 @@ body, html {
     font-size: 12px;
     text-align: center;
     z-index: 10;
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    border-radius: 5px;
 }
 
 .node i {
     margin-right: 5px;
-}
-
-.node-start, .node-end {
-    border-radius: 30px;
-}
-
-.node-start {
-    background-color: #4CAF50;
-    color: white;
-}
-
-.node-end {
-    background-color: #f44336;
-    color: white;
-}
-
-.node-facebook, .node-twitter, .node-instagram {
-    background-color: #3b5998;
-    color: white;
-}
-
-.node-twitter {
-    background-color: #1da1f2;
-}
-
-.node-instagram {
-    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
-}
-
-.node-landing-page {
-    background-color: #ff9800;
-    color: white;
-}
-
-.node-email {
-    background-color: #795548;
-    color: white;
-}
-
-.node-decision, .node-multi-path {
-    width: 80px;
-    height: 80px;
-    transform: rotate(45deg);
-    background-color: #2196F3;
-    color: white;
-}
-
-.node-decision i, .node-decision span, .node-multi-path i, .node-multi-path span {
-    transform: rotate(-45deg);
-}
-
-.node-catalogue {
-    background-color: #9c27b0;
-    color: white;
-}
-
-.node-ai-personalization {
-    background-color: #00bcd4;
-    color: white;
 }
 
 #properties {
