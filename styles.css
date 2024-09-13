@@ -1,0 +1,145 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    height: 100%;
+}
+
+#app {
+    display: flex;
+    height: 100%;
+}
+
+#toolbox {
+    width: 200px;
+    background-color: #f0f0f0;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+.toolbox-item {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    cursor: move;
+    display: flex;
+    align-items: center;
+}
+
+.toolbox-item i {
+    margin-right: 10px;
+}
+
+#canvas {
+    flex-grow: 1;
+    position: relative;
+    background-color: #fff;
+    overflow: auto;
+}
+
+.node {
+    position: absolute;
+    width: 120px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: move;
+    font-size: 12px;
+    text-align: center;
+    z-index: 10;
+}
+
+.node i {
+    margin-right: 5px;
+}
+
+.node-start, .node-end {
+    border-radius: 30px;
+}
+
+.node-start {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.node-end {
+    background-color: #f44336;
+    color: white;
+}
+
+.node-facebook, .node-twitter, .node-instagram {
+    background-color: #3b5998;
+    color: white;
+}
+
+.node-twitter {
+    background-color: #1da1f2;
+}
+
+.node-instagram {
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+}
+
+.node-landing-page {
+    background-color: #ff9800;
+    color: white;
+}
+
+.node-email {
+    background-color: #795548;
+    color: white;
+}
+
+.node-decision, .node-multi-path {
+    width: 80px;
+    height: 80px;
+    transform: rotate(45deg);
+    background-color: #2196F3;
+    color: white;
+}
+
+.node-decision i, .node-decision span, .node-multi-path i, .node-multi-path span {
+    transform: rotate(-45deg);
+}
+
+.node-catalogue {
+    background-color: #9c27b0;
+    color: white;
+}
+
+.node-ai-personalization {
+    background-color: #00bcd4;
+    color: white;
+}
+
+#properties {
+    width: 250px;
+    background-color: #f0f0f0;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+#save-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.jtk-connector {
+    z-index: 5;
+}
+
+.jtk-endpoint {
+    z-index: 6;
+}
+
+.jtk-overlay {
+    z-index: 7;
+}
